@@ -2,6 +2,16 @@ from flask import Flask, jsonify
 
 app = Flask(__name__)
 
+# Define a custom error handler for 404 (Not Found) errors
+@app.errorhandler(404)
+def not_found_error(error):
+    return jsonify({"error": "Resource not found"}), 404
+
+# Define a custom error handler for 500 (Internal Srver Error)
+@app.errorhandler(500)
+def internal_server_error(error):
+    return jsonify({"error": "An internal server error occurred"}), 500
+
 @app.route("/")
 def index():
     return jsonify({"message": "Hello, Khyri!"})  # Returns JSON response
